@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { Product } from "../types";
 import { useRouter } from "next/router";
 import { fetcher, QueryKeys } from "../react-query";
+import ProudctDetail from "../../components/product/detail";
 
 const ProductDetailPage = () => {
   const router = useRouter();
@@ -16,25 +17,7 @@ const ProductDetailPage = () => {
 
   if (!data) return null;
 
-  const {
-    category,
-    title,
-    description,
-    image,
-    price,
-    rating: { rate },
-  } = data;
-
-  return (
-    <div className="product-detail">
-      <p className="product-detail__category">{category}</p>
-      <p className="product-detail__title">{title}</p>
-      <p className="product-detail__description">{description}</p>
-      <img className="product-detail__image" src={image} />
-      <span className="product-detail__price">$ {price}</span>
-      <span className="product-detail__rating">{rate}</span>
-    </div>
-  );
+  return <ProudctDetail item={data} />;
 };
 
 export default ProductDetailPage;
