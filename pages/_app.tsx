@@ -5,13 +5,15 @@ import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
 import "../scss/index.scss";
+import Gnb from "../components/gnb";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = React.useState(() => new QueryClient());
+  const [queryClient] = React.useState(() => new QueryClient()); // TODO cache time
 
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
+        <Gnb />
         <Component {...pageProps} />
       </Hydrate>
       <ReactQueryDevtools initialIsOpen={false} />
