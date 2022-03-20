@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { Product } from "../types";
+import { Product } from "../../components/types";
 import { useRouter } from "next/router";
 import { fetcher, QueryKeys } from "../react-query";
 import ProudctDetail from "../../components/product/detail";

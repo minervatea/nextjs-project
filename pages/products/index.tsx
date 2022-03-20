@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import ProductItem from "../../components/product/item";
 import { fetcher, QueryKeys } from "../react-query";
-import { Product } from "../types";
+import { Product } from "../../components/types";
 
 const ProductListPage = () => {
   const { data } = useQuery<Product[]>(QueryKeys.PRODUCTS, () =>
@@ -11,7 +11,6 @@ const ProductListPage = () => {
     })
   );
 
-  console.log(data);
   return (
     <div>
       <ul className="products">
