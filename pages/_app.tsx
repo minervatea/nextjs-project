@@ -6,13 +6,16 @@ import { ReactQueryDevtools } from "react-query/devtools";
 
 import "../scss/index.scss";
 import Gnb from "../components/gnb";
+import { setupMocks } from "../mocks";
+
+if (process.env.NODE_ENV === "development") {
+  import("../mocks").then(({ setupMocks }) => {
+    setupMocks();
+  });
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = React.useState(() => new QueryClient()); // TODO cache time
-
-  if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
-    require("../mocks");
-  }
 
   return (
     <QueryClientProvider client={queryClient}>

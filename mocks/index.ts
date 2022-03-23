@@ -1,11 +1,11 @@
-const mocks = () => (
-if (typeof window === "undefined") {
-  const { server } = require("./server");
-  server.listen();
-} else {
-  const { worker } = require("./browser");
-  worker.start();
-}
-)
+const IS_BROWSER = typeof window !== "undefined";
 
-export default mocks;
+export const setupMocks = async () => {
+  if (IS_BROWSER) {
+    const { worker } = await import("./worker");
+    worker.start();
+  } else {
+    const { server } = await import("./server");
+    server.listen();
+  }
+};
