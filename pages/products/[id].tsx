@@ -1,18 +1,15 @@
 import { useQuery } from "react-query";
-import { Product } from "../../components/types";
 import { useRouter } from "next/router";
-import { fetcher, QueryKeys } from "../react-query";
+import { graphqlFetcher, QueryKeys } from "../react-query";
 import ProudctDetail from "../../components/product/detail";
+import { GET_PRODUCT, Proudct } from "../../graphql/products";
 
 const ProductDetailPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data } = useQuery<Product>([QueryKeys.PRODUCTS, id], () =>
-    fetcher({
-      method: "GET",
-      path: `/products/${id}`,
-    })
+  const { data } = useQuery<Proudct>([QueryKeys.PRODUCTS, id], () =>
+    graphqlFetcher(GET_PRODUCT)
   );
 
   if (!data) return null;

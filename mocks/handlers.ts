@@ -1,3 +1,4 @@
+import { GET_PRODUCT } from "./../graphql/products";
 import { QueryKeys } from "./../pages/react-query";
 import { graphql } from "msw";
 import { v4 as uuid } from "uuid";
@@ -19,5 +20,11 @@ export const handlers = [
         products: mock_products,
       })
     );
+  }),
+
+  graphql.query(GET_PRODUCT, (req, res, ctx) => {
+    const found = mock_products.find((item) => (item.id = req.id));
+    if (!found) return res();
+    return res(ctx.data(found));
   }),
 ];
