@@ -8,8 +8,8 @@ const ProductDetailPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data } = useQuery<Proudct>([QueryKeys.PRODUCTS, id], () =>
-    graphqlFetcher(GET_PRODUCT)
+  const { data } = useQuery<Proudct>([QueryKeys.PRODUCT, id], () =>
+    graphqlFetcher(GET_PRODUCT, { id })
   );
 
   if (!data) return null;

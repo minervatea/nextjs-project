@@ -35,4 +35,17 @@ export const GET_PRODUCT = gql`
   }
 `;
 
+// export const GET_PRODUCT = gql`
+//   query GET_PRODUCT($id: ID!) {
+//     product(id: $id) {
+//       id
+//       imageUrl
+//       price
+//       title
+//       description
+//       createdAt
+//     }
+//   }
+// `;
+
 export default GET_PRODUCTS;

@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import "../scss/index.scss";
 import Gnb from "../components/gnb";
 import { setupMocks } from "../mocks";
+import { RecoilRoot } from "recoil";
 
 if (process.env.NODE_ENV === "development") {
   import("../mocks").then(({ setupMocks }) => {
@@ -20,8 +21,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <Gnb />
-        <Component {...pageProps} />
+        <RecoilRoot>
+          <Gnb />
+          <Component {...pageProps} />
+        </RecoilRoot>
       </Hydrate>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

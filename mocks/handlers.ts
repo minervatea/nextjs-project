@@ -4,7 +4,7 @@ import { graphql } from "msw";
 import { v4 as uuid } from "uuid";
 import GET_PRODUCTS from "../graphql/products";
 
-const mock_products = Array.from({ length: 20 }).map((_, i) => ({
+const mockProducts = Array.from({ length: 20 }).map((_, i) => ({
   id: uuid(),
   imageUrl: `https://placeimg.com/200/150/${i + 1}`,
   price: 80,
@@ -17,14 +17,14 @@ export const handlers = [
   graphql.query(GET_PRODUCTS, (req, res, ctx) => {
     return res(
       ctx.data({
-        products: mock_products,
+        products: mockProducts,
       })
     );
   }),
 
   graphql.query(GET_PRODUCT, (req, res, ctx) => {
-    const found = mock_products.find((item) => (item.id = req.id));
-    if (!found) return res();
-    return res(ctx.data(found));
+    const found = mockProducts.find((item) => item.id === req.variables.id);
+    if (found) return res(ctx.data(found));
+    return res();
   }),
 ];
