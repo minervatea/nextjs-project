@@ -1,4 +1,4 @@
-import { atom, selector, selectorFamily, useRecoilValue } from "recoil";
+import { atom, selector, selectorFamily } from "recoil";
 
 export const cartState = atom<Map<string, number>>({
   key: "cartState",
@@ -17,10 +17,10 @@ export const cartItemSelector = selectorFamily<number | undefined, string>({
     (id: string) =>
     ({ set, get }, newValue) => {
       if (typeof newValue === "number") {
-        console.log(newValue);
-        const newCart = get(cartState).set(id, newValue);
-        console.log(newCart);
+        const newCart = new Map(get(cartState));
+        newCart.set(id, newValue);
         set(cartState, newCart);
+        console.log(newCart);
       }
     },
 });

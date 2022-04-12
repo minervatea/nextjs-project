@@ -3,6 +3,7 @@ import { QueryKeys } from "./../pages/react-query";
 import { graphql } from "msw";
 import { v4 as uuid } from "uuid";
 import GET_PRODUCTS from "../graphql/products";
+import GET_CART from "../graphql/cart";
 
 const mockProducts = Array.from({ length: 20 }).map((_, i) => ({
   id: uuid(),
@@ -25,6 +26,10 @@ export const handlers = [
   graphql.query(GET_PRODUCT, (req, res, ctx) => {
     const found = mockProducts.find((item) => item.id === req.variables.id);
     if (found) return res(ctx.data(found));
+    return res();
+  }),
+
+  graphql.query(GET_CART, (req, res, ctx) => {
     return res();
   }),
 ];
