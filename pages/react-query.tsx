@@ -70,4 +70,5 @@ export const restFetcher = async ({
 export const QueryKeys = {
   PRODUCTS: "PRODUCTS",
   PRODUCT: "PRODUCT",
+  CART: "CART",
 };

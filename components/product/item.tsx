@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { selectorFamily, useRecoilState, useRecoilValue } from "recoil";
+import { useMutation } from "react-query";
+import { ADD_CART } from "../../graphql/cart";
 
 import { Proudct } from "../../graphql/products";
-import { cartItemSelector } from "../../recoils/cart";
+import { graphqlFetcher, QueryKeys } from "../../pages/react-query";
 
 const ProductItem = ({
   description,
@@ -12,9 +13,9 @@ const ProductItem = ({
   price,
   createdAt,
 }: Proudct) => {
-  const [cartAmount, setCartAmount] = useRecoilState(cartItemSelector(id));
-  const addToCart = () => setCartAmount((cartAmount || 0) + 1);
-
+  const { mutate: addCart } = useMutation((id: string) =>
+    graphqlFetcher(ADD_CART, { id })
+  );
   return (
     <div className="product-item">
       <Link passHref href={`/products/${id}`}>
@@ -24,10 +25,9 @@ const ProductItem = ({
           <span className="product-item__price">$ {price}</span>
         </li>
       </Link>
-      <button onClick={addToCart} className="product-item__add_cart">
+      <button className="product-item__add_cart" onClick={() => addCart(id)}>
         add
       </button>
-      <span>{cartAmount || 0}</span>
     </div>
   );
 };
