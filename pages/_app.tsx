@@ -8,6 +8,7 @@ import "../scss/index.scss";
 import Gnb from "../components/gnb";
 import { setupMocks } from "../mocks";
 import { RecoilRoot } from "recoil";
+import { getClient } from "./react-query";
 
 if (process.env.NODE_ENV === "development") {
   import("../mocks").then(({ setupMocks }) => {
@@ -16,7 +17,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = React.useState(() => new QueryClient()); // TODO cache time
+  const queryClient = getClient();
 
   return (
     <QueryClientProvider client={queryClient}>

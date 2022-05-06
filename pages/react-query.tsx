@@ -3,29 +3,26 @@ import { request, RequestDocument } from "graphql-request";
 
 type AnyOBJ = { [key: string]: any };
 
-export const getClient = () => {
+export const getClient = (() => {
   let client: QueryClient | null = null;
   return () => {
     if (!client)
       client = new QueryClient({
         defaultOptions: {
           queries: {
-            cacheTime: 1000 * 60 * 60 * 24,
-            staleTime: 1000 * 60,
+            staleTime: Infinity,
+            cacheTime: Infinity,
             refetchOnMount: false,
             refetchOnReconnect: false,
             refetchOnWindowFocus: false,
           },
         },
       });
+    return client;
   };
-};
+})();
 
 const BASE_URL = "/";
-
-// export const restFetcher = async({
-
-// })
 
 export const graphqlFetcher = (query: RequestDocument, variables = {}) =>
   request(BASE_URL, query, variables);

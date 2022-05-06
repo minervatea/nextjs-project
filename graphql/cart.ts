@@ -7,7 +7,6 @@ export type CartType = {
   title: string;
   amount: number;
 };
-
 export const ADD_CART = gql`
   mutation ADD_CART($id: string) {
     cart(id: $id) {
@@ -20,13 +19,21 @@ export const ADD_CART = gql`
   }
 `;
 
-export const GET_CART_ITEM = gql`
-  query GET_CART_ITEM {
+export const UPDATE_CART = gql`
+  mutation UPDATE_CART($id: string, $amount: number) {
+    cart(id: $id, amount: $amount) {
+      id
+      imageUrl
+      price
+      title
+      amount
+    }
+  }
+`;
+
+export const DELETE_CART = gql`
+  mutation DELETE_CART($id: string) {
     id
-    imageUrl
-    price
-    title
-    amount
   }
 `;
 
